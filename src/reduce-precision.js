@@ -1,10 +1,15 @@
 /**
  * @param {string|number} num
- * @param {number} precision
+ * @param {number} [precision]
  * @return {string}
  */
 export default function reducePrecision(num, precision) {
     const numString = num.toString();
+
+    // do not proceed false precision
+    if (!precision && precision !== 0) {
+        return numString;
+    }
 
     // decimal exponential number
     if ((/e-/i).test(numString)) {
@@ -18,8 +23,13 @@ export default function reducePrecision(num, precision) {
 
     const notMeaningfulFraction = numString.match(/\.0*/);
     if (notMeaningfulFraction) {
-        const MeaningfulFractionIndex = notMeaningfulFraction.index + notMeaningfulFraction[0].length;
-        return numString.substr(0, MeaningfulFractionIndex + precision);
+        precision = Number(precision);
+        if (precision === 0) {
+            return numString.substr(0, notMeaningfulFraction.index);
+        } else {
+            const MeaningfulFractionIndex = notMeaningfulFraction.index + notMeaningfulFraction[0].length;
+            return numString.substr(0, MeaningfulFractionIndex + precision);
+        }
     }
 
     return numString;

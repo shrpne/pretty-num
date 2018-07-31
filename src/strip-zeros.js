@@ -5,9 +5,14 @@
  */
 export default function stripZeros(num) {
     if (typeof num === 'string') {
-        // strip ending zeros
         if (num.indexOf('.') !== -1) {
-            num = num.replace(/\.?0+$/, '');
+            if (!/[eE]/.test(num)) {
+                // strip ending zeros
+                num = num.replace(/\.?0+$/, '');
+            } else {
+                // strip ending zeros in exponential notation
+                num = num.replace(/\.?0+(?=[eE])/, '');
+            }
         }
         // strip leading zeros
         num = num.replace(/^0+(?!\.)(?!$)/, '');

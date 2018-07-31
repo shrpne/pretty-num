@@ -2,12 +2,17 @@
   "name": "pretty-num",
   "version": "0.0.1",
   "description": "Lightweight module for formatting numbers to a human readable string",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "module": "src/index.js",
   "files": [
-    "/src/"
+    "/src/",
+    "/dist/"
   ],
   "scripts": {
-    "prepublishOnly": "npm run lint && npm run test",
+    "build": "npm run bundle && npm run bundle:min",
+    "bundle": "rollup -c build/rollup.config.js",
+    "bundle:min": "rollup -c build/rollup.uglify.config.js",
+    "prepublishOnly": "npm run lint && npm run test && npm run build",
     "lint": "eslint --ext .js ./src ./test",
     "lint:fix": "eslint --ext .js ./src ./test --fix",
     "test": "jest",
@@ -31,14 +36,23 @@
   "bugs": {
     "url": "https://github.com/shrpne/pretty-num/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "from-exponential": "^1.0.0",
+    "thousands": "^1.0.1"
+  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.0",
     "babel-preset-env": "^1.7.0",
+    "coveralls": "^3.0.2",
     "eslint": "^5.2.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
-    "jest": "^23.4.1"
+    "jest": "^23.4.1",
+    "rollup": "^0.63.4",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-commonjs": "^9.1.4",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-terser": "^1.0.1"
   }
 }

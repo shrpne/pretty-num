@@ -22,4 +22,11 @@ describe('reducePrecision', () => {
         expect(reducePrecision(1.123456e+80, 3)).toEqual('1.123456e+80');
         expect(reducePrecision(0.123456e+80, 3)).toEqual('1.23456e+79');
     });
+
+    test('precision', () => {
+        expect(reducePrecision(12.123456, 0)).toEqual('12');
+        expect(reducePrecision(12.123456, false)).toEqual('12.123456');
+        expect(reducePrecision(12.123456)).toEqual('12.123456');
+        expect(reducePrecision(12.123456, 100)).toEqual('12.123456');
+    });
 });
