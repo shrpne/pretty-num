@@ -1,17 +1,18 @@
 /**
  * Strip unnecessary last zeros after dot
- * @param num
+ * @param {string|number} num
+ * @param {boolean} [keepEnding] - not strip ending zeros
  * @return {string|number}
  */
-export default function stripZeros(num) {
+export default function stripZeros(num, keepEnding) {
     if (typeof num === 'string') {
-        if (num.indexOf('.') !== -1) {
+        if (!keepEnding && num.indexOf('.') !== -1) {
             if (!/[eE]/.test(num)) {
                 // strip ending zeros
-                num = num.replace(/\.?0+$/, '');
+                num = num.replace(/\.?0*$/, '');
             } else {
                 // strip ending zeros in exponential notation
-                num = num.replace(/\.?0+(?=[eE])/, '');
+                num = num.replace(/\.?0*(?=[eE])/, '');
             }
         }
         // strip leading zeros

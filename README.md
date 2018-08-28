@@ -31,8 +31,43 @@ prettyNum(12.123e-10); // => '0.0000000012123'
 prettyNum(0.00123456, {precision: 3}); // => '0.00123'
 prettyNum(12345678.12345, {thousandsSeparator: ' '}); // => '12 345 678.12345'
 prettyNum('00123456789.12300e-2', {precision: 3, thousandsSeparator: ' '}); // => '1 234 567.891'
-
 ```
+
+### Options
+
+#### thousandsSeparator
+Defines the thousand grouping separator character
+
+#### precision
+Number of decimal digits to keep when rounding. Pass falsey value to not change precision.
+
+#### rounding
+Rounding type
+- `'default'` - reduce precision to specified number of decimal digits, strip unnecessary ending zeros. 
+
+```js
+prettyNum(0.01023456, {precision: 3});
+// => '0.01'
+prettyNum(0.00001203456, {precision: 3});
+// => '0'
+```
+
+- `'significant'` - reduce precision to specified number of significant decimal digits, strip unnecessary ending zeros. Useful when rounding small values and they should not be rounded to 0
+```js
+prettyNum(0.01023456, {precision: 3, rounding: 'significant'});
+// => '0.0102'
+prettyNum(0.00001203456, {precision: 3, rounding: 'significant'});
+// => '0.000012'
+```  
+
+- `'fixed'` - reduce precision to specified number of decimal digits, pad with ending zeros.
+```js
+prettyNum(0.01023456, {precision: 3, rounding: 'significant'});
+// => '0.010'
+prettyNum(0.00001203456, {precision: 3, rounding: 'fixed'});
+// => '0.000'
+``` 
+
 
 
 ## License

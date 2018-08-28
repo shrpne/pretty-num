@@ -1,16 +1,37 @@
 import prettyNum from '../src';
+import {ROUNDING_SIGNIFICANT, ROUNDING_FIXED} from '../src/reduce-precision';
 
-describe('prettyNum', () => {
+describe('prettyNum()', () => {
     test('exponential', () => {
-        expect(prettyNum(1.123e-10, {precision: 3})).toEqual('0.000000000112');
-        expect(prettyNum(12.123e-10, {precision: 3})).toEqual('0.00000000121');
-        expect(prettyNum(123.123e-10, {precision: 3})).toEqual('0.0000000123');
+        expect(prettyNum(1.123e-10, {precision: 3})).toEqual('0');
+        expect(prettyNum(12.123e-10, {precision: 3})).toEqual('0');
+        expect(prettyNum(123.123e-10, {precision: 3})).toEqual('0');
         expect(prettyNum('123.123e+4', {precision: 3})).toEqual('1231230');
+
+        expect(prettyNum(1.123e-10, {precision: 3, rounding: ROUNDING_SIGNIFICANT})).toEqual('0.000000000112');
+        expect(prettyNum(12.123e-10, {precision: 3, rounding: ROUNDING_SIGNIFICANT})).toEqual('0.00000000121');
+        expect(prettyNum(123.123e-10, {precision: 3, rounding: ROUNDING_SIGNIFICANT})).toEqual('0.0000000123');
+        expect(prettyNum('123.123e+4', {precision: 3, rounding: ROUNDING_SIGNIFICANT})).toEqual('1231230');
+
+        expect(prettyNum(1.123e-10, {precision: 3, rounding: ROUNDING_FIXED})).toEqual('0.000');
+        expect(prettyNum(12.123e-10, {precision: 3, rounding: ROUNDING_FIXED})).toEqual('0.000');
+        expect(prettyNum(123.123e-10, {precision: 3, rounding: ROUNDING_FIXED})).toEqual('0.000');
+        expect(prettyNum('123.123e+4', {precision: 3, rounding: ROUNDING_FIXED})).toEqual('1231230.000');
     });
 
     test('not exponential', () => {
-        expect(prettyNum(0.00123456, {precision: 3})).toEqual('0.00123');
-        expect(prettyNum('00000.001234560000000000000', {precision: 3})).toEqual('0.00123');
+        expect(prettyNum(0.00123456, {precision: 3})).toEqual('0.001');
+        expect(prettyNum('00000.001234560000000000000', {precision: 3})).toEqual('0.001');
+        expect(prettyNum('00000.001204560000000000000', {precision: 3})).toEqual('0.001');
+
+        expect(prettyNum(0.00123456, {precision: 3, rounding: ROUNDING_SIGNIFICANT})).toEqual('0.00123');
+        expect(prettyNum('00000.001234560000000000000', {precision: 3, rounding: ROUNDING_SIGNIFICANT})).toEqual('0.00123');
+        expect(prettyNum('00000.001204560000000000000', {precision: 3, rounding: ROUNDING_SIGNIFICANT})).toEqual('0.0012');
+
+        expect(prettyNum(0.00123456, {precision: 3, rounding: ROUNDING_FIXED})).toEqual('0.001');
+        expect(prettyNum('00000.001234560000000000000', {precision: 3, rounding: ROUNDING_FIXED})).toEqual('0.001');
+        expect(prettyNum('00000.001204560000000000000', {precision: 3, rounding: ROUNDING_FIXED})).toEqual('0.001');
+        expect(prettyNum('00000', {precision: 3, rounding: ROUNDING_FIXED})).toEqual('0.000');
     });
 
     test('thousands', () => {
