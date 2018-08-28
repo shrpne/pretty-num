@@ -1,6 +1,6 @@
 {
   "name": "pretty-num",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight module for formatting numbers to a human readable string",
   "main": "dist/index.js",
   "module": "src/index.js",

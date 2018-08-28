@@ -10,7 +10,7 @@ import reducePrecision from './reduce-precision';
  * @param {string} [thousandsSeparator]
  * @return {string}
  */
-export default function prettyNum(num, {precision, rounding, thousandsSeparator}) {
+export default function prettyNum(num, {precision, rounding, thousandsSeparator} = {}) {
     // remove exponential notation
     num = fromExponential(num);
 

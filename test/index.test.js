@@ -3,6 +3,11 @@ import {ROUNDING_SIGNIFICANT, ROUNDING_FIXED} from '../src/reduce-precision';
 
 describe('prettyNum()', () => {
     test('exponential', () => {
+        expect(prettyNum(1.123e-10)).toEqual('0.0000000001123');
+        expect(prettyNum(12.123e-10)).toEqual('0.0000000012123');
+        expect(prettyNum(123.123e-10)).toEqual('0.0000000123123');
+        expect(prettyNum('123.123e+4')).toEqual('1231230');
+
         expect(prettyNum(1.123e-10, {precision: 3})).toEqual('0');
         expect(prettyNum(12.123e-10, {precision: 3})).toEqual('0');
         expect(prettyNum(123.123e-10, {precision: 3})).toEqual('0');
