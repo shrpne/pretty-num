@@ -1,3 +1,6 @@
+## 0.2.1 - 2018-12-11
+- Fix backward compatibility with v0.1.1: export consts from src/reduce-precision
+
 ## 0.2.0 - 2018-12-11
 - Add `increase` rounding method 
 
