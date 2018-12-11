@@ -9,6 +9,16 @@ export default function padZerosToFixed(numString, precision) {
         return numString;
     }
 
+    if (typeof numString !== 'string') {
+        numString = numString.toString();
+    }
+
+    // leave exponential untouched
+    // @TODO throw on exponential, suggest to use `from-exponential`
+    if (numString.toLowerCase().indexOf('e') !== -1) {
+        return numString;
+    }
+
     const exponentialPosition = numString.toLowerCase().indexOf('e');
     const notExponential = exponentialPosition === -1;
 

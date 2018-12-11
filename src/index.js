@@ -1,6 +1,6 @@
 import fromExponential from 'from-exponential';
 import thousands from 'thousands';
-import reducePrecision from './reduce-precision';
+import reducePrecision from './to-precision';
 
 
 /**

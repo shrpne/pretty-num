@@ -42,8 +42,8 @@ Defines the thousand grouping separator character
 Number of decimal digits to keep when rounding. Pass falsey value to not change precision.
 
 #### rounding
-Rounding type
-- `'default'` - reduce precision to specified number of decimal digits, strip unnecessary ending zeros. 
+Rounding types:
+- `'reduce'` - reduce precision to specified number of decimal digits, strip unnecessary ending zeros. 
 
 ```js
 prettyNum(0.01023456, {precision: 3});
@@ -52,7 +52,7 @@ prettyNum(0.00001203456, {precision: 3});
 // => '0'
 ```
 
-- `'significant'` - reduce precision to specified number of significant decimal digits, strip unnecessary ending zeros. Useful when rounding small values and they should not be rounded to 0
+- `'reduceSignificant'` - reduce precision to specified number of significant decimal digits, strip unnecessary ending zeros. Useful when rounding small values and they should not be rounded to 0
 ```js
 prettyNum(0.01023456, {precision: 3, rounding: 'significant'});
 // => '0.0102'
@@ -62,10 +62,20 @@ prettyNum(0.00001203456, {precision: 3, rounding: 'significant'});
 
 - `'fixed'` - reduce precision to specified number of decimal digits, pad with ending zeros.
 ```js
-prettyNum(0.01023456, {precision: 3, rounding: 'significant'});
+prettyNum(0.01023456, {precision: 3, rounding: 'fixed'});
 // => '0.010'
 prettyNum(0.00001203456, {precision: 3, rounding: 'fixed'});
 // => '0.000'
+``` 
+
+- `'increase'` - pad with ending zeros to increase precision to specified number of decimal digits.
+```js
+prettyNum(0.01, {precision: 4, rounding: 'increase'});
+// => '0.0100'
+prettyNum(12, {precision: 4, rounding: 'increase'});
+// => '12.0000'
+prettyNum(12.123456, {precision: 4, rounding: 'increase'});
+// => '12.123456'
 ``` 
 
 

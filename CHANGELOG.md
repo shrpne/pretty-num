@@ -1,3 +1,6 @@
+## 0.2.0 - 2018-12-11
+- Add `increase` rounding method 
+
 ## 0.1.1 - 2018-08-28
 - Fixed usage without options [#1](https://github.com/shrpne/pretty-num/issues/1)
 
