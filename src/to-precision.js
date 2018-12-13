@@ -4,7 +4,7 @@ import padZerosToFixed from './pad-zeros-to-fixed';
 export const PRECISION_REDUCE = 'reduce';
 export const PRECISION_REDUCE_ALIAS = 'default';
 export const PRECISION_REDUCE_SIGNIFICANT = 'reduceSignificant';
-export const PRECISION_REDUCE_SIGNIFICANT_ALIAS = 'reduceSignificant';
+export const PRECISION_REDUCE_SIGNIFICANT_ALIAS = 'significant';
 export const PRECISION_FIXED = 'fixed';
 export const PRECISION_INCREASE = 'increase';
 
