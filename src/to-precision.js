@@ -2,16 +2,9 @@ import stripZeros from './strip-zeros';
 import padZerosToFixed from './pad-zeros-to-fixed';
 
 export const PRECISION_REDUCE = 'reduce';
-export const PRECISION_REDUCE_ALIAS = 'default';
 export const PRECISION_REDUCE_SIGNIFICANT = 'reduceSignificant';
-export const PRECISION_REDUCE_SIGNIFICANT_ALIAS = 'significant';
 export const PRECISION_FIXED = 'fixed';
 export const PRECISION_INCREASE = 'increase';
-
-// deprecate
-export const ROUNDING_DEFAULT = PRECISION_REDUCE_ALIAS;
-export const ROUNDING_SIGNIFICANT = PRECISION_REDUCE_SIGNIFICANT_ALIAS;
-export const ROUNDING_FIXED = PRECISION_FIXED;
 
 /**
  * Reduce precision, accept rounding methods:
@@ -19,6 +12,7 @@ export const ROUNDING_FIXED = PRECISION_FIXED;
  * - 'reduceSignificant', 'significant' - reduce precision to specified number of significant decimal digits, strip unnecessary ending zeros.
  * - 'fixed' - reduce precision to specified number of decimal digits, pad with ending zeros.
  * - 'increase' - pad with ending zeros to increase precision to specified number of decimal digits.
+ * Don't work with exponential notation, use `from-exponential` if necessary
  * @param {string|number} num
  * @param {number} [precision]
  * @param {Object} [options]
@@ -26,6 +20,13 @@ export const ROUNDING_FIXED = PRECISION_FIXED;
  * @return {string}
  */
 export default function toPrecision(num, precision, options = {}) {
+    num = num.toString();
+
+    // leave exponential untouched
+    if (num.toLowerCase().indexOf('e') !== -1) {
+        return num;
+    }
+
     if (!options.rounding) {
         options.rounding = PRECISION_REDUCE;
     }
@@ -46,46 +47,25 @@ export default function toPrecision(num, precision, options = {}) {
 }
 
 /**
- * Reduce precision with `reduce` or `reduceSignificant` rounding, can produce ending zeros
- * @param {string|number} num
+ * Reduce precision with `reduce` or `reduceSignificant` rounding, can produce ending dot or zeros
+ * @param {string} numString
  * @param {number} precision
  * @param {'reduce'|'reduceSignificant'} rounding
  * @return {string}
  */
-export function _reducePrecision(num, precision, {rounding}) {
-    const numString = num.toString();
-
-    // do not proceed falsey precision, except `0`
+export function _reducePrecision(numString, precision, {rounding = PRECISION_REDUCE}) {
+    // do not proceed falsy precision, except `0`
     if (!precision && precision !== 0) {
         return numString;
     }
 
-    // @TODO throw on exponential, suggest to use `from-exponential`
-    // decimal exponential number
-    if ((/e-/i).test(numString)) {
-        if (rounding === PRECISION_REDUCE_SIGNIFICANT || rounding === PRECISION_REDUCE_SIGNIFICANT_ALIAS) {
-            return num.toPrecision(precision);
-        } else {
-            return num.toFixed(precision);
-        }
-    }
-    // integer exponential number
-    if ((/e/i).test(numString)) {
-        return numString;
-    }
-
-    // if rounding type is `reduceSignificant` then discounting zeros, ex. `.0000`, otherwise discount starting from dot `.`
-    const discountedFractionRegex = (rounding === PRECISION_REDUCE_SIGNIFICANT || rounding === PRECISION_REDUCE_SIGNIFICANT_ALIAS) ? /\.0*/ : /\./;
-    const discountedFraction = numString.match(discountedFractionRegex);
-    if (discountedFraction) {
+    // if rounding type is `reduceSignificant` then start discount from zeros, ex. `.0000`, otherwise discount starting from dot `.`
+    const discountStartRegex = rounding === PRECISION_REDUCE_SIGNIFICANT ? /\.0*/ : /\./;
+    const discountStartMatch = numString.match(discountStartRegex);
+    if (discountStartMatch) {
         precision = Number(precision);
-        if (precision === 0) {
-            // discount including dot
-            return numString.substr(0, discountedFraction.index);
-        } else {
-            const significantFractionIndex = discountedFraction.index + discountedFraction[0].length;
-            return numString.substr(0, significantFractionIndex + precision);
-        }
+        const discountStartIndex = discountStartMatch.index + discountStartMatch[0].length;
+        return numString.substr(0, discountStartIndex + precision);
     }
 
     return numString;

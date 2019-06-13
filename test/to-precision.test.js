@@ -61,24 +61,22 @@ describe('toPrecision()', () => {
         expect(toPrecision(0.001, 4, {rounding: PRECISION_INCREASE})).toEqual('0.0010');
     });
 
-    test('exponential', () => {
-        expect(toPrecision(1.123456e-80, 3)).toEqual('0');
-        expect(toPrecision(0.123456e-80, 3)).toEqual('0');
+    test('exponential: should leave value untouched', () => {
+        expect(toPrecision(1.123456e-80, 3)).toEqual('1.123456e-80');
+        expect(toPrecision(0.123456e-80, 3)).toEqual('1.23456e-81');
         expect(toPrecision(1.123456e+80, 3)).toEqual('1.123456e+80');
         expect(toPrecision(0.123456e+80, 3)).toEqual('1.23456e+79');
 
-        expect(toPrecision(1.123456e-80, 3, {rounding: PRECISION_REDUCE_SIGNIFICANT})).toEqual('1.12e-80');
-        expect(toPrecision(0.123456e-80, 3, {rounding: PRECISION_REDUCE_SIGNIFICANT})).toEqual('1.23e-81');
+        expect(toPrecision(1.123456e-80, 3, {rounding: PRECISION_REDUCE_SIGNIFICANT})).toEqual('1.123456e-80');
+        expect(toPrecision(0.123456e-80, 3, {rounding: PRECISION_REDUCE_SIGNIFICANT})).toEqual('1.23456e-81');
         expect(toPrecision(1.123456e+80, 3, {rounding: PRECISION_REDUCE_SIGNIFICANT})).toEqual('1.123456e+80');
         expect(toPrecision(0.123456e+80, 3, {rounding: PRECISION_REDUCE_SIGNIFICANT})).toEqual('1.23456e+79');
 
-        expect(toPrecision(1.123456e-80, 3, {rounding: PRECISION_FIXED})).toEqual('0.000');
-        expect(toPrecision(0.123456e-80, 3, {rounding: PRECISION_FIXED})).toEqual('0.000');
+        expect(toPrecision(1.123456e-80, 3, {rounding: PRECISION_FIXED})).toEqual('1.123456e-80');
+        expect(toPrecision(0.123456e-80, 3, {rounding: PRECISION_FIXED})).toEqual('1.23456e-81');
         expect(toPrecision(1.123456e+80, 3, {rounding: PRECISION_FIXED})).toEqual('1.123456e+80');
         expect(toPrecision(0.123456e+80, 3, {rounding: PRECISION_FIXED})).toEqual('1.23456e+79');
-    });
 
-    test('exponential: `increse` method should leave value untouched', () => {
         expect(toPrecision(1.123456e-80, 4, {rounding: PRECISION_INCREASE})).toEqual('1.123456e-80');
         expect(toPrecision(0.123456e-80, 4, {rounding: PRECISION_INCREASE})).toEqual('1.23456e-81');
         expect(toPrecision(1.123456e+80, 4, {rounding: PRECISION_INCREASE})).toEqual('1.123456e+80');
@@ -92,6 +90,7 @@ describe('toPrecision()', () => {
 
     test('precision argument', () => {
         expect(toPrecision(12.123456, 0)).toEqual('12');
+        expect(toPrecision(12.00123456, 0, {rounding: PRECISION_REDUCE_SIGNIFICANT})).toEqual('12');
         expect(toPrecision(12.123456, false)).toEqual('12.123456');
         expect(toPrecision(12.123456)).toEqual('12.123456');
         expect(toPrecision(12.123456, 100)).toEqual('12.123456');

@@ -1,5 +1,6 @@
 /**
  * Pad number string with zeros to fixed precision
+ * Don't work with exponential notation, use `from-exponential` if necessary
  * @param {string} numString
  * @param {number} precision
  * @return {string}
@@ -14,17 +15,13 @@ export default function padZerosToFixed(numString, precision) {
     }
 
     // leave exponential untouched
-    // @TODO throw on exponential, suggest to use `from-exponential`
     if (numString.toLowerCase().indexOf('e') !== -1) {
         return numString;
     }
 
-    const exponentialPosition = numString.toLowerCase().indexOf('e');
-    const notExponential = exponentialPosition === -1;
-
     const decimalStart = numString.indexOf('.');
     const hasDot = decimalStart !== -1;
-    const decimalEnd = notExponential ? numString.length : exponentialPosition;
+    const decimalEnd = numString.length;
 
     const countDecimals = hasDot ? decimalEnd - decimalStart - 1 : 0;
     const countZerosToPad = precision - countDecimals;

@@ -1,6 +1,6 @@
 import fromExponential from 'from-exponential';
 import thousands from 'thousands';
-import reducePrecision from './to-precision';
+import toPrecision from './to-precision';
 
 
 /**
@@ -15,7 +15,7 @@ export default function prettyNum(num, {precision, rounding, thousandsSeparator}
     num = fromExponential(num);
 
     // reduce precision
-    num = reducePrecision(num, precision, {rounding});
+    num = toPrecision(num, precision, {rounding});
 
     if (thousandsSeparator) {
         num = thousands(num, thousandsSeparator);

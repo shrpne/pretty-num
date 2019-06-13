@@ -29,6 +29,7 @@
   "keywords": [
     "format",
     "pretty",
+    "big",
     "number",
     "human",
     "readable",
@@ -37,8 +38,11 @@
     "exponential",
     "thousands",
     "separator",
+    "significant",
     "round",
     "decimal",
+    "fixed",
+    "decrease",
     "precision"
   ],
   "author": "shrpne <shrpne@gmail.com>",
