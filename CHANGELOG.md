@@ -1,6 +1,8 @@
 ## 0.3.0 - 2019-06-14
 - **BREAKING** remove deprecated files and rounding methods
 - **BREAKING** inner method `toPrecision` stop work with exponential notation
+- **BREAKING** rename `rounding` option to `precisionSetting` and change it type from strings to enum numbers
+- add `roundingMode` option
 
 ## 0.2.2 - 2018-12-13
 - Fix backward compatibility: restore 'significant' rounding method name
