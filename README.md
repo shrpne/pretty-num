@@ -31,6 +31,7 @@ prettyNum(12.123e-10); // => '0.0000000012123'
 prettyNum(0.00123456, {precision: 3}); // => '0.001'
 prettyNum(0.00123456, {precision: 3, precisionSetting: PRECISION_SETTING.REDUCE_SIGNIFICANT}); // => '0.00123'
 prettyNum(12345678.12345, {thousandsSeparator: ' '}); // => '12 345 678.12345'
+prettyNum(12345678.12345, {decimalSeparator: ','}); // => '12345678,12345'
 prettyNum('00123456789.12300e-2', {precision: 3, thousandsSeparator: ' '}); // => '1 234 567.891'
 ```
 
@@ -41,6 +42,9 @@ Defines the thousand grouping separator character
 
 ### `precision`
 Number of decimal digits to keep when rounding. Pass falsey value to not change precision.
+
+### `decimalSeparator`
+Separator between the integer part and the fractional part
 
 ### `precisionSetting`
 How to work with precision:
