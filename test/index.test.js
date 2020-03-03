@@ -1,5 +1,5 @@
 import prettyNum from '../src/pretty-num';
-import {PRECISION_SETTING} from '../src/to-precision';
+import {PRECISION_SETTING, ROUNDING_MODE} from '../src/to-precision';
 
 describe('prettyNum()', () => {
     test('exponential', () => {
@@ -26,6 +26,9 @@ describe('prettyNum()', () => {
         expect(prettyNum(1.123e-10, {precision: 3, precisionSetting: PRECISION_SETTING.INCREASE})).toEqual('0.0000000001123');
         expect(prettyNum(12.123e-10, {precision: 3, precisionSetting: PRECISION_SETTING.INCREASE})).toEqual('0.0000000012123');
         expect(prettyNum('123.123e+4', {precision: 3, precisionSetting: PRECISION_SETTING.INCREASE})).toEqual('1231230.000');
+
+        expect(prettyNum(1e-18, {precision: 2, precisionSetting: PRECISION_SETTING.REDUCE, roundingMode: ROUNDING_MODE.CEIL})).toEqual('0.01');
+        expect(prettyNum(1e-18, {precision: 2, precisionSetting: PRECISION_SETTING.REDUCE_SIGNIFICANT, roundingMode: ROUNDING_MODE.CEIL})).toEqual('0.000000000000000001');
     });
 
     test('not exponential', () => {
@@ -61,7 +64,12 @@ describe('prettyNum()', () => {
 
     test('decimalSeparator', () => {
         expect(prettyNum(12345678.12345, {decimalSeparator: ','})).toEqual('12345678,12345');
+        expect(prettyNum(12345678.12345, {decimalSeparator: ',', thousandsSeparator: ' '})).toEqual('12 345 678,12345');
+        expect(prettyNum(12345678.12345, {decimalSeparator: '.', thousandsSeparator: ','})).toEqual('12,345,678.12345');
         expect(prettyNum('123.123e+4', {decimalSeparator: ','})).toEqual('1231230');
+        expect(prettyNum(1234, {precision: 3, decimalSeparator: ','})).toEqual('1234');
+        expect(prettyNum(0, {precision: 3, decimalSeparator: ','})).toEqual('0');
+        expect(prettyNum(0.001, {precision: 3, decimalSeparator: ','})).toEqual('0,001');
     });
 
     test('all together', () => {

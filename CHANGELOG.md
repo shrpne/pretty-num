@@ -1,3 +1,6 @@
+## 0.4.0 - 2020-03-04
+- Add `decimalSeparator` options
+
 ## 0.3.0 - 2019-06-14
 - **BREAKING** remove deprecated files and rounding methods
 - **BREAKING** inner method `toPrecision` stop work with exponential notation

@@ -17,10 +17,14 @@ export default function prettyNum(num, {precision, precisionSetting, roundingMod
     num = fromExponential(num);
 
     // reduce precision
-    num = toPrecision(num, precision, {precisionSetting, roundingMode, decimalSeparator});
+    num = toPrecision(num, precision, {precisionSetting, roundingMode});
 
     if (thousandsSeparator) {
         num = thousands(num, thousandsSeparator);
+    }
+
+    if (decimalSeparator && decimalSeparator !== '.') {
+        num = num.replace('.', decimalSeparator);
     }
 
     return num;

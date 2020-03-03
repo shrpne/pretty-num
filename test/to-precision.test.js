@@ -86,11 +86,6 @@ describe('toPrecision()', () => {
         expect(toPrecision(0.123456e-80, 84, {precisionSetting: PRECISION_SETTING.INCREASE})).toEqual('1.23456e-81');
         expect(toPrecision(1.123456e+80, 84, {precisionSetting: PRECISION_SETTING.INCREASE})).toEqual('1.123456e+80');
         expect(toPrecision(0.123456e+80, 84, {precisionSetting: PRECISION_SETTING.INCREASE})).toEqual('1.23456e+79');
-
-        expect(toPrecision(1.123456e-80, 3, {decimalSeparator: ','})).toEqual('1.123456e-80');
-        expect(toPrecision(0.123456e-80, 3, {decimalSeparator: ','})).toEqual('1.23456e-81');
-        expect(toPrecision(1.123456e+80, 3, {decimalSeparator: ','})).toEqual('1.123456e+80');
-        expect(toPrecision(0.123456e+80, 3, {decimalSeparator: ','})).toEqual('1.23456e+79');
     });
 
     test('precision argument', () => {
@@ -99,14 +94,6 @@ describe('toPrecision()', () => {
         expect(toPrecision(12.123456, false)).toEqual('12.123456');
         expect(toPrecision(12.123456)).toEqual('12.123456');
         expect(toPrecision(12.123456, 100)).toEqual('12.123456');
-    });
-
-    test('custom decimalSeparator', () => {
-        expect(toPrecision(1234, 3, {decimalSeparator: ','})).toEqual('1234');
-        expect(toPrecision(12.001, 3, {decimalSeparator: ','})).toEqual('12,001');
-        expect(toPrecision(12.123, 3, {decimalSeparator: ','})).toEqual('12,123');
-        expect(toPrecision(0, 3, {decimalSeparator: ','})).toEqual('0');
-        expect(toPrecision(0.001, 3, {decimalSeparator: ','})).toEqual('0,001');
     });
 });
 
@@ -217,6 +204,15 @@ describe('round', () => {
         it('should round(1.1, 0, CEILING) = 2', () => {
             expect(toPrecision('1.1', 0, {roundingMode: ROUNDING_MODE.CEIL})).toBe('2');
         });
+        it('should round(1.01, 0, CEILING) = 2', () => {
+            expect(toPrecision('1.01', 0, {roundingMode: ROUNDING_MODE.CEIL})).toBe('2');
+        });
+        it('should round(0.000000000000000001, 2, CEILING) = 0.01', () => {
+            expect(toPrecision('0.000000000000000001', 2, {roundingMode: ROUNDING_MODE.CEIL})).toBe('0.01');
+        });
+        // it('should round(1e-18, 2, CEILING) = 0.01', () => {
+        //     expect(toPrecision(1e-18, 2, {roundingMode: ROUNDING_MODE.CEIL})).toBe('0.01');
+        // });
         it('should round(1.0, 0, CEILING) = 1', () => {
             expect(toPrecision('1.0', 0, {roundingMode: ROUNDING_MODE.CEIL})).toBe('1');
         });

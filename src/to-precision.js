@@ -44,7 +44,6 @@ export const ROUNDING_MODE = {
  * @param {Object} [options]
  * @param {PRECISION_SETTING} [options.precisionSetting]
  * @param {ROUNDING_MODE} [options.roundingMode]
- * @param {string} [options.decimalSeparator]
  * @return {string}
  */
 export default function toPrecision(num, precision, options = {}) {
@@ -59,27 +58,20 @@ export default function toPrecision(num, precision, options = {}) {
         options.precisionSetting = PRECISION_SETTING.REDUCE;
     }
 
-    let result;
-
     if (options.precisionSetting === PRECISION_SETTING.FIXED) {
-        result = _reducePrecision(num, precision, {
+        let result = _reducePrecision(num, precision, {
             precisionSetting: PRECISION_SETTING.REDUCE,
             roundingMode: options.roundingMode,
         });
         result = stripZeros(result, true);
-        result = padZerosToFixed(result, precision, options.decimalSeparator);
+        result = padZerosToFixed(result, precision);
+        return result;
     } else if (options.precisionSetting === PRECISION_SETTING.INCREASE) {
-        result = stripZeros(num);
-        result = padZerosToFixed(result, precision, options.decimalSeparator);
+        const result = stripZeros(num);
+        return padZerosToFixed(result, precision);
     } else {
-        result = stripZeros(_reducePrecision(num, precision, options));
+        return stripZeros(_reducePrecision(num, precision, options));
     }
-
-    if (options.decimalSeparator && options.decimalSeparator !== '.') {
-        result = result.replace('.', ',');
-    }
-
-    return result;
 }
 
 /**
