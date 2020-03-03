@@ -59,9 +59,15 @@ describe('prettyNum()', () => {
         expect(prettyNum(0, {precision: 3, precisionSetting: PRECISION_SETTING.INCREASE})).toEqual('0.000');
     });
 
+    test('decimalSeparator', () => {
+        expect(prettyNum(12345678.12345, {decimalSeparator: ','})).toEqual('12345678,12345');
+        expect(prettyNum('123.123e+4', {decimalSeparator: ','})).toEqual('1231230');
+    });
+
     test('all together', () => {
         expect(prettyNum('00000123456789.12345678912345678900000e10', {thousandsSeparator: ' '})).toEqual('1 234 567 891 234 567 891.23456789');
         expect(prettyNum('00000123456789.12345678912345678900000e10', {precision: 3, thousandsSeparator: ' '})).toEqual('1 234 567 891 234 567 891.235');
+        expect(prettyNum('00000123456789.12345678912345678900000e10', {precision: 3, thousandsSeparator: ' ', decimalSeparator: ','})).toEqual('1 234 567 891 234 567 891,235');
         expect(prettyNum('00123456789.12300e-2', {precision: 3, thousandsSeparator: ' '})).toEqual('1 234 567.891');
     });
 });
