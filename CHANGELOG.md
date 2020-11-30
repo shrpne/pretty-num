@@ -1,3 +1,6 @@
+## 0.5.0 - 2020-12-01
+- Add `separateOneDigit` option
+
 ## 0.4.0 - 2020-03-04
 - Add `decimalSeparator` options
 

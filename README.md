@@ -39,6 +39,21 @@ prettyNum('00123456789.12300e-2', {precision: 3, thousandsSeparator: ' '}); // =
 
 ### `thousandsSeparator`
 Defines the thousand grouping separator character
+```js
+prettyNum(12345678.12345, {thousandsSeparator: ' '}); 
+// => '12 345 678.12345'
+prettyNum(12345678.12345, {thousandsSeparator: ','}); 
+// => '12,345,678.12345'
+```
+
+### `separateOneDigit`
+Should number less than 10000 (e.g. 9999) to be separated, `true` by default
+```js
+prettyNum(1234, {thousandsSeparator: ' ', separateOneDigit: true});
+// => '1 234'
+prettyNum(1234, {thousandsSeparator: ' ', separateOneDigit: false});
+// => '1234'
+```
 
 ### `precision`
 Number of decimal digits to keep when rounding. Pass falsey value to not change precision.

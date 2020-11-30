@@ -56,6 +56,13 @@ describe('prettyNum()', () => {
         expect(prettyNum('0000012345678.12345000000', {thousandsSeparator: ' '})).toEqual('12 345 678.12345');
     });
 
+    test('separateOneDigit', () => {
+        expect(prettyNum(1234.12345, {thousandsSeparator: ' '})).toEqual('1 234.12345');
+        expect(prettyNum(1234.12345, {thousandsSeparator: ' ', separateOneDigit: true})).toEqual('1 234.12345');
+        expect(prettyNum(12345.12345, {thousandsSeparator: ' ', separateOneDigit: true})).toEqual('12 345.12345');
+        expect(prettyNum(1234.12345, {thousandsSeparator: ' ', separateOneDigit: false})).toEqual('1234.12345');
+    });
+
     test('zero', () => {
         expect(prettyNum(0, {precision: 3, precisionSetting: PRECISION_SETTING.FIXED})).toEqual('0.000');
         expect(prettyNum('0.0000000000000', {precision: 3, precisionSetting: PRECISION_SETTING.FIXED})).toEqual('0.000');

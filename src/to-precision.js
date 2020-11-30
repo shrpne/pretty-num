@@ -141,7 +141,6 @@ export function _reducePrecision(numString, precision, {precisionSetting = PRECI
     return (negation ? '-' : '') + numString;
 }
 
-
 /**
  *
  * @param {string} part
