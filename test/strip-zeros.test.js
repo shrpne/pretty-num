@@ -42,8 +42,7 @@ describe('stripZeros()', () => {
         expect(stripZeros('0012.00010000')).toEqual('12.0001');
     });
 
-    // strip unnecessary dot
-    test('strip zeros after dot', () => {
+    test('strip unnecessary dot', () => {
         expect(stripZeros('12.')).toEqual('12');
         expect(stripZeros('0.')).toEqual('0');
         expect(stripZeros('001.e-20')).toEqual('1e-20');

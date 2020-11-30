@@ -103,13 +103,11 @@ describe('round', () => {
         expect(toPrecision(123456)).toBe('123456');
     });
 
-    it('should return float without padded zeros if second argument is non-zero and first is integer', () => {
+    it('should return integer without padded zeros if second argument is non-zero and first is integer', () => {
         expect(toPrecision(123456, 2)).toBe('123456');
     });
     it('should return float without padded zeros if second argument is non-zero and first is floating', () => {
         expect(toPrecision(12345.6, 2)).toBe('12345.6');
-    });
-    it('should return float without padded zeros if second argument is non-zero and first is floating', () => {
         expect(toPrecision('044909.987', 5)).toBe('44909.987');
     });
     it('should return float rounded appropriately if second argument is non-zero and first is floating', () => {

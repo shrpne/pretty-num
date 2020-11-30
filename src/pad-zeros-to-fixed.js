@@ -26,10 +26,10 @@ export default function padZerosToFixed(numString, precision) {
     const countDecimals = hasDot ? decimalEnd - decimalStart - 1 : 0;
     const countZerosToPad = precision - countDecimals;
     let zeros = hasDot ? '' : '.';
-    for (let i = 0; i < countZerosToPad; i += 1) {
+    for (let index = 0; index < countZerosToPad; index += 1) {
         zeros += '0';
     }
 
     // insert zeros between number and exponential part
-    return numString.substring(0, decimalEnd) + zeros + numString.substring(decimalEnd);
+    return numString.slice(0, Math.max(0, decimalEnd)) + zeros + numString.slice(decimalEnd);
 }

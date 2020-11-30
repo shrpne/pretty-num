@@ -12,11 +12,12 @@ module.exports = {
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'airbnb-base',
-  // required to lint *.vue files
-  // plugins: [
-  //   'html'
-  // ],
-  // // add your custom rules here
+  plugins: [
+    'jest',
+    'security',
+    'unicorn',
+  ],
+  // add your custom rules here
   rules: {
     'indent': ["error", 4],
     // allow paren-less arrow functions
@@ -41,11 +42,42 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['examples/*'],
+      files: ['src/**/*'],
+      extends: [
+        'plugin:security/recommended',
+        'plugin:unicorn/recommended',
+      ],
       rules: {
-        "import/no-extraneous-dependencies": 0,
-        'no-console': 0,
+        'security/detect-object-injection': 0,
+        'unicorn/better-regex': 0,
+        // full path import is per spec
+        'unicorn/import-index': 0,
+        // IE11 support needed
+        'unicorn/prefer-includes': 0,
+        'unicorn/prefer-ternary': 0,
+        // allow lowercase hex number
+        'unicorn/number-literal-case': 0,
+        'unicorn/prefer-optional-catch-binding': 0,
+        'unicorn/prevent-abbreviations': ['error', {
+          replacements: {
+            'num': false,
+            'str': false,
+          },
+          // whitelist: {
+          //   'prettyNum': true,
+          // }
+        }],
+      },
+    },
+    {
+      files: ['test/**/*'],
+      extends: [
+        'plugin:jest/recommended',
+      ],
+      rules: {
+        'no-unused-vars': 0,
+        'import/extensions': 0,
       }
-    }
+    },
   ]
 };

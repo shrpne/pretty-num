@@ -102,7 +102,7 @@ export function _reducePrecision(numString, precision, {precisionSetting = PRECI
     let negation = false;
     if (partWhole[0] === '-') {
         negation = true;
-        partWhole = partWhole.substring(1);
+        partWhole = partWhole.slice(1);
     }
 
     // remove dot from string (it's easier to work with single integer value), dot position will be restored from parts length
@@ -122,9 +122,9 @@ export function _reducePrecision(numString, precision, {precisionSetting = PRECI
     const discountedDecimalPartLength = Math.min(partDecimal.length, precision);
 
     // erased part
-    const remainder = numString.substr(discountStartIndex);
+    const remainder = numString.slice(discountStartIndex);
     // string after erasing
-    numString = numString.substr(0, discountStartIndex);
+    numString = numString.slice(0, discountStartIndex);
 
     // increment if needed by rounding mode
     if (remainder && greaterThanFive(remainder, numString, negation, roundingMode)) {
@@ -134,7 +134,7 @@ export function _reducePrecision(numString, precision, {precisionSetting = PRECI
     // restore dot position from string end
     if (discountedDecimalPartLength) {
         const integerPartLength = numString.length - discountedDecimalPartLength;
-        numString = `${numString.substr(0, integerPartLength)}.${numString.substr(integerPartLength)}`;
+        numString = `${numString.slice(0, integerPartLength)}.${numString.slice(integerPartLength)}`;
     }
 
     // restore negation
@@ -170,7 +170,7 @@ function greaterThanFive(part, pre, neg, mode) {
     case ROUNDING_MODE.HALF_DOWN: return false;
     case ROUNDING_MODE.HALF_UP: return true;
     case ROUNDING_MODE.HALF_EVEN:
-    default: return (parseInt(pre[pre.length - 1], 10) % 2 === 1);
+    default: return (Number.parseInt(pre[pre.length - 1], 10) % 2 === 1);
     }
 }
 
@@ -183,8 +183,8 @@ function greaterThanFive(part, pre, neg, mode) {
 function increment(part, value = 1) {
     let str = '';
     // traverse string backward
-    for (let i = part.length - 1; i >= 0; i -= 1) {
-        let digit = parseInt(part[i], 10) + value;
+    for (let index = part.length - 1; index >= 0; index -= 1) {
+        let digit = Number.parseInt(part[index], 10) + value;
         if (digit === 10) {
             value = 1;
             digit = 0;
