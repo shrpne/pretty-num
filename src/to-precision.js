@@ -2,11 +2,7 @@ import stripZeros from './strip-zeros';
 import padZerosToFixed from './pad-zeros-to-fixed';
 
 /**
- * @typedef {number} PRECISION_SETTING
- * */
-
-/**
- * @enum {PRECISION_SETTING}
+ * @enum {number}
  */
 export const PRECISION_SETTING = {
     REDUCE: 1,
@@ -16,11 +12,7 @@ export const PRECISION_SETTING = {
 };
 
 /**
- * @typedef {number} ROUNDING_MODE
- * */
-
-/**
- * @enum {ROUNDING_MODE}
+ * @enum {number}
  */
 export const ROUNDING_MODE = {
     UP: 1,
@@ -169,7 +161,7 @@ function greaterThanFive(part, pre, neg, mode) {
     switch (mode) {
     case ROUNDING_MODE.HALF_DOWN: return false;
     case ROUNDING_MODE.HALF_UP: return true;
-    case ROUNDING_MODE.HALF_EVEN:
+    // case ROUNDING_MODE.HALF_EVEN:
     default: return (Number.parseInt(pre[pre.length - 1], 10) % 2 === 1);
     }
 }

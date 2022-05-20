@@ -1,5 +1,2 @@
-import prettyNum from './pretty-num';
-import {ROUNDING_MODE, PRECISION_SETTING} from './to-precision';
-
-export default prettyNum;
-export {prettyNum, ROUNDING_MODE, PRECISION_SETTING};
+export {default as prettyNum, default} from './pretty-num';
+export {ROUNDING_MODE, PRECISION_SETTING} from './to-precision';

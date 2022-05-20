@@ -1,3 +1,7 @@
+## 0.5.1 - 2020-12-01
+- Update deps
+- Minor fix types
+
 ## 0.5.0 - 2020-12-01
 - Add `separateOneDigit` option
 

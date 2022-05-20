@@ -39,6 +39,8 @@ module.exports = {
     'no-use-before-define' : 0,
     'object-curly-newline': 0,
     'import/prefer-default-export': 1,
+    // allow `export {default} from '...'`
+    'no-restricted-exports': 0,
   },
   overrides: [
     {
@@ -55,9 +57,15 @@ module.exports = {
         // IE11 support needed
         'unicorn/prefer-includes': 0,
         'unicorn/prefer-ternary': 0,
+        // allow String#split()
+        'unicorn/prefer-spread': 0,
         // allow lowercase hex number
         'unicorn/number-literal-case': 0,
         'unicorn/prefer-optional-catch-binding': 0,
+        // new Array has better compatibility than Array.from()
+        'unicorn/no-new-array': 0,
+        // not supported yet
+        'unicorn/numeric-separators-style': 0,
         'unicorn/prevent-abbreviations': ['error', {
           replacements: {
             'num': false,
