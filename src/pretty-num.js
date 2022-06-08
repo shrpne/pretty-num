@@ -4,12 +4,13 @@ import toPrecision from './to-precision';
 
 /**
  * @param {number|string} num
- * @param {number} [precision]
- * @param {PRECISION_SETTING} [precisionSetting]
- * @param {ROUNDING_MODE} [roundingMode]
- * @param {string} [thousandsSeparator]
- * @param {string} [decimalSeparator]
- * @param {boolean} [separateOneDigit = true]
+ * @param {object} [options]
+ * @param {number} [options.precision]
+ * @param {PRECISION_SETTING} [options.precisionSetting = PRECISION_SETTING.REDUCE]
+ * @param {ROUNDING_MODE} [options.roundingMode = ROUNDING_MODE.HALF_EVEN]
+ * @param {string} [options.thousandsSeparator]
+ * @param {string} [options.decimalSeparator = '.']
+ * @param {boolean} [options.separateOneDigit = true]
  * @return {string}
  */
 export default function prettyNum(num, {precision, precisionSetting, roundingMode, thousandsSeparator, decimalSeparator, separateOneDigit = true} = {}) {

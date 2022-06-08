@@ -1,4 +1,7 @@
-## 0.5.1 - 2020-12-01
+## 0.5.2 - 2022-06-08
+- Improve jsdoc
+
+## 0.5.1 - 2022-05-20
 - Update deps
 - Minor fix types
 

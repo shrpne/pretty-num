@@ -33,9 +33,9 @@ export const ROUNDING_MODE = {
  * Don't work with exponential notation, use `from-exponential` if necessary
  * @param {string|number} num
  * @param {number} [precision]
- * @param {Object} [options]
- * @param {PRECISION_SETTING} [options.precisionSetting]
- * @param {ROUNDING_MODE} [options.roundingMode]
+ * @param {object} [options]
+ * @param {PRECISION_SETTING} [options.precisionSetting = PRECISION_SETTING.REDUCE]
+ * @param {ROUNDING_MODE} [options.roundingMode = ROUNDING_MODE.HALF_EVEN]
  * @return {string}
  */
 export default function toPrecision(num, precision, options = {}) {
@@ -70,11 +70,12 @@ export default function toPrecision(num, precision, options = {}) {
  * Reduce precision with `reduce` or `reduceSignificant` precisionSetting, can produce ending dot or zeros
  * @param {string} numString
  * @param {number} precision
- * @param {PRECISION_SETTING} [precisionSetting]
- * @param {ROUNDING_MODE} [roundingMode]
+ * @param {object} [options]
+ * @param {PRECISION_SETTING} [options.precisionSetting = PRECISION_SETTING.REDUCE]
+ * @param {ROUNDING_MODE} [options.roundingMode]
  * @return {string}
  */
-export function _reducePrecision(numString, precision, {precisionSetting = PRECISION_SETTING.REDUCE, roundingMode = ROUNDING_MODE.HALF_UP}) {
+export function _reducePrecision(numString, precision, {precisionSetting = PRECISION_SETTING.REDUCE, roundingMode = ROUNDING_MODE.HALF_UP} = {}) {
     // do not proceed falsy precision, except `0`
     if (!precision && precision !== 0) {
         return numString;
@@ -138,7 +139,7 @@ export function _reducePrecision(numString, precision, {precisionSetting = PRECI
  * @param {string} part
  * @param {string} pre
  * @param {boolean} neg
- * @param {ROUNDING_MODE} mode
+ * @param {ROUNDING_MODE} [mode=ROUNDING_MODE.HALF_EVEN]
  * @return {boolean}
  */
 function greaterThanFive(part, pre, neg, mode) {
