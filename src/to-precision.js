@@ -1,5 +1,5 @@
-import stripZeros from './strip-zeros';
-import padZerosToFixed from './pad-zeros-to-fixed';
+import stripZeros from './strip-zeros.js';
+import padZerosToFixed from './pad-zeros-to-fixed.js';
 
 /**
  * @enum {number}
@@ -160,10 +160,16 @@ function greaterThanFive(part, pre, neg, mode) {
 
     // case when part === five
     switch (mode) {
-    case ROUNDING_MODE.HALF_DOWN: return false;
-    case ROUNDING_MODE.HALF_UP: return true;
-    // case ROUNDING_MODE.HALF_EVEN:
-    default: return (Number.parseInt(pre[pre.length - 1], 10) % 2 === 1);
+        case ROUNDING_MODE.HALF_DOWN: {
+            return false;
+        }
+        case ROUNDING_MODE.HALF_UP: {
+            return true;
+        }
+        // case ROUNDING_MODE.HALF_EVEN:
+        default: {
+            return (Number.parseInt(pre.at(-1), 10) % 2 === 1);
+        }
     }
 }
 

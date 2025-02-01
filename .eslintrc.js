@@ -28,7 +28,9 @@ module.exports = {
   // },
   // add your custom rules here
   rules: {
-    'indent': ["error", 4],
+    'indent': ["error", 4, {
+      "SwitchCase": 1,
+    }],
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await
@@ -55,11 +57,12 @@ module.exports = {
     {
       files: ['src/**/*'],
       extends: [
-        'plugin:security/recommended',
+        'plugin:security/recommended-legacy',
         'plugin:unicorn/recommended',
         'plugin:jsdoc/recommended',
       ],
       rules: {
+        'import/extensions': ['error', 'always'],
         'security/detect-object-injection': 0,
         'unicorn/better-regex': 0,
         // full path import is per spec
@@ -90,6 +93,8 @@ module.exports = {
         'jsdoc/require-returns-description': 0,
         'jsdoc/require-property-description': 0,
         'jsdoc/newline-after-description': 0,
+        // allow defaults
+        'jsdoc/no-defaults': 0,
         // poor syntax validator
         'jsdoc/valid-types': 0,
         // @TODO allow both return and returns

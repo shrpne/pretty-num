@@ -1,17 +1,17 @@
 /**
  * Pad number string with zeros to fixed precision
  * Don't work with exponential notation, use `from-exponential` if necessary
- * @param {string} numString
+ * @param {string|number} numString
  * @param {number} precision
  * @return {string}
  */
 export default function padZerosToFixed(numString, precision) {
-    if (!(precision > 0)) {
-        return numString;
-    }
-
     if (typeof numString !== 'string') {
         numString = numString.toString();
+    }
+
+    if (!(precision > 0)) {
+        return numString;
     }
 
     // leave exponential untouched

@@ -1,3 +1,6 @@
+## 0.6.0 - 2025-02-01
+- Add type definitions
+
 ## 0.5.2 - 2022-06-08
 - Improve jsdoc
 
@@ -24,15 +27,15 @@
 - Fix backward compatibility with v0.1.1: export consts from src/reduce-precision
 
 ## 0.2.0 - 2018-12-11
-- Add `increase` rounding method 
+- Add `increase` rounding method
 
 ## 0.1.1 - 2018-08-28
 - Fixed usage without options [#1](https://github.com/shrpne/pretty-num/issues/1)
 
 ## 0.1.0 - 2018-08-28
 - **BREAKING** changed default rounding type from `significant`
-- Add `rounding` option, now rounding type can be specified: `default`, `significant`, `fixed` 
+- Add `rounding` option, now rounding type can be specified: `default`, `significant`, `fixed`
 - Fixed ending zeros not stripped after rounding
 
 ## 0.0.1 - 2018-07-31
-- Initial 
+- Initial
