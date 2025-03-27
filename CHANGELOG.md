@@ -1,3 +1,6 @@
+## 0.6.2 - 2025-03-27
+- fix exports
+
 ## 0.6.1 - 2025-03-27
 - Improve exports
 
