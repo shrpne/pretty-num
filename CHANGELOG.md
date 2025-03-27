@@ -1,3 +1,6 @@
+## 0.6.1 - 2025-03-27
+- Improve exports
+
 ## 0.6.0 - 2025-02-01
 - Add type definitions
 

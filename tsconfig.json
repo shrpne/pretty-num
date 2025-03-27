@@ -19,6 +19,7 @@
     "declaration": true,
     "declarationDir": "./types",
     "emitDeclarationOnly": true,
+    "declarationMap": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
@@ -32,6 +33,6 @@
   },
   "include": [
     "src/**/*",
-    "types/**/*",
-  ],
+    "types/**/*"
+  ]
 }
